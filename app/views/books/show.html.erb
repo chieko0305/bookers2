@@ -1,0 +1,54 @@
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-3">
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>error prohibited this obj from being saved:
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+      <!-- 部分テンプレート -->
+      <%= render 'books', user: @user, book: @book_new %>
+    </div>
+
+    <div class="col-md-8 offset-md-1">
+      <!--<table class="table table-striped">-->
+
+      <h1>Book detail</h1>
+      <table class="table table-hover table-inverse">
+        <tbody>
+            <tr>
+              <td>
+                <%= link_to user_path(@user.id) do %>
+                <%= image_tag @user.get_profile_image(100,100) %><br>
+                <%= @user.name %>
+                <% end %>
+              </td>
+              <td><%= link_to @book.title, book_path(@book.id) %></td>
+              <td><%= @book.body %></td>
+              <td><% if @book.user == current_user %>
+                <%= link_to"Edit", edit_book_path(@book), class: "btn btn-success" %>
+                <% end %>
+              </td>
+              <td><% if @book.user == current_user %>
+                <%= link_to"Destroy", book_path(@book), method: :delete , class: "btn btn-danger" %>
+                <% end %>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--もしログインユーザーの本投稿であればedit,destroyボタン-->
+
+
+
+
+
+
+
+
