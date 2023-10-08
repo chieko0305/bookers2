@@ -30,6 +30,7 @@ before_action :is_matching_login_user, only: [:edit, :update]
     @book = Book.find(params[:id])
     @books = Book.all
     @user = @book.user
+    @book_comment = BookComment.new
   end
 
   def edit
@@ -60,9 +61,8 @@ end
 
 def is_matching_login_user
   book = Book.find(params[:id])
-  unless book.user_id == current_user.id
+  unless book.id == current_user.id
     redirect_to books_path
   end
 end
-
 end

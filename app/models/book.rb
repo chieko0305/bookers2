@@ -1,5 +1,7 @@
 class Book < ApplicationRecord
   belongs_to :user
+  has_many :favorites, dependent: :destroy
+  has_many :book_comments, dependent: :destroy
 
    has_one_attached :profile_image
    #titleがあるかのバリデーション
@@ -14,6 +16,10 @@ def get_profile_image(width, height)
       profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
-    end
+end
+
+def favorited_by?(user)
+  favorites.exists?(user_id: user.id)
+end
 
 end

@@ -36,9 +36,38 @@
                 <%= link_to"Destroy", book_path(@book), method: :delete , class: "btn btn-danger" %>
                 <% end %>
               </td>
+              <td>
+                <% if @book.favorited_by?(current_user) %>
+                  <p>
+                    <%= link_to book_favorites_path(@book), method: :delete do %>
+                      ♥<%= @book.favorites.count %> いいね
+                    <% end %>
+                  </p>
+                  <% else %>
+                  <p>
+                    <%= link_to book_favorites_path(@book), method: :post do %>
+                      ♡<%= @book.favorites.count %> いいね
+                    <% end %>
+                  </p>
+                <% end %>
+              </td>
+              <td>
+                <div>コメント件数：<span id="comment_count"><%= @book.book_comments.count %></span></div>
+               <!--部分テンプレート（_book_comments.html.erb）-->
+              </td>
+              <!--<td>-->
+                <!--部分テンプレート（_form.html.erb）-->
+              <!--</td>-->
             </tr>
         </tbody>
       </table>
+      <div id="book_comments">
+        <%= render "book_comments/book_comments", book: @book %>
+      </div>
+
+      <div id="comment_form">
+        <%= render "book_comments/form", book: @book, book_comment:@book_comment %>
+      </div>
     </div>
   </div>
 </div>

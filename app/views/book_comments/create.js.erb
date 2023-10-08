@@ -1,0 +1,4 @@
+$('#book_comments').html("<%= j(render "book_comments/book_comments", book: @book) %>");
+$('#comment_form').html("<%= j(render "book_comments/form", book: @book, book_comment:@comment_new) %>");
+$('#comment_count').html("<%= @book.book_comments.count %>")
+$("textarea").val('');
